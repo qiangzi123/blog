@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+<constant name="i18n.encoding" value="utf-8"/>
+	<!-- 配置为开发模式 -->
+ 	  <constant name="struts.devMode" value="true"/>
+	  <constant name="struts.locale" value="zh_CN" />
+	  <constant name="struts.ui.theme" value="simple" />
+	  <constant name="struts.ognl.allowStaticMethodAccess" value="true" />
+	  <constant name="struts.multipart.maxSize" value="1048576000"/>
+	  <constant name="struts.custom.i18n.resources" value="globalMessages" /> 
+	  
+	    <package name="test" extends="struts-default" namespace="/">
+	     
+	    
+		<action name="Message_*" class="blog.zzq.action.view.MessageAction" method="{1}">
+		<result name="message" type="redirectAction">Message_selectList</result>
+		<result name="selectList">/WEB-INF/jsp/client/message.jsp</result>
+		
+		<result name="showMessage">/WEB-INF/jsp/admin/message.jsp</result>
+		<result name="deleteMessage" type="redirectAction">Message_show</result>
+	
+		</action>
+		
+		<action name="Admin_*" class="blog.zzq.action.view.AdminAction" method="{1}">
+		<result name="OK">/WEB-INF/jsp/admin/explain.jsp</result>
+		<result name="NO">/WEB-INF/jsp/client/admin.jsp</result>
+		<result name="ADMIN_INDEX">/WEB-INF/jsp/client/admin.jsp</result>
+		<result name="explain">/WEB-INF/jsp/admin/explain.jsp</result>
+		</action>
+		
+		<action name="XZS_*" class="blog.zzq.action.view.XinZhongSiAction" method="{1}">
+		<result name="index">/WEB-INF/jsp/client/XinZhongSi.jsp</result>
+		<result name="showSelete">/WEB-INF/jsp/admin/xinzhongsi.jsp</result>
+		<result name="addXZS" type="redirectAction">XZS_showSelete</result>
+		<result name="deleteXZS" type="redirectAction">XZS_showSelete</result>
+		<result name="read">/WEB-INF/jsp/client/read.jsp</result>
+		<result name="next" >/WEB-INF/jsp/client/read.jsp</result>
+		<result name="back" >/WEB-INF/jsp/client/read.jsp</result>
+		</action>
+		<action name="answer_" class="blog.zzq.action.view.Xzs_answerAction" method="{1}">
+			<result name="deleteAnswer" type="redirectAction">XZS_showSelete</result>
+			<!-- <result name="addAnswer"></result> -->
+			</action>
+    	<action name="download" class="blog.zzq.action.view.FileDownloadAction">
+				    <result name="success" type="stream">
+				    <param name="inputPath">/images/${filename}</param>
+					<param name="contentType">application/octet-stream;</param>
+					<param name="inputName">inputStream</param>
+					<param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+					<param name="bufferSize">8192</param>
+				</result>
+			</action>
+			<!--图片轮播  -->
+			<action name="img_*" class="blog.zzq.action.view.ImgAction" method="{1}">
+			<result name="imgpage">/WEB-INF/jsp/client/img.jsp</result>
+			<result name="adminImgPage">/WEB-INF/jsp/admin/img.jsp</result>
+			<result name="addImg" type="redirectAction">img_adminImgPage</result>
+			<result name="delete" type="redirectAction">img_adminImgPage</result>
+			</action>
+	</package>
+	
+</struts>    
